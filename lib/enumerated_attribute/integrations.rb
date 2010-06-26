@@ -1,6 +1,7 @@
 require 'enumerated_attribute/integrations/active_record'
 require 'enumerated_attribute/integrations/object'
 require 'enumerated_attribute/integrations/datamapper'
+require 'enumerated_attribute/integrations/sequel'
 require 'enumerated_attribute/integrations/default'
 
 module EnumeratedAttribute
@@ -18,6 +19,7 @@ module EnumeratedAttribute
 		#included mappings
 		add('Object', EnumeratedAttribute::Integrations::Object)
 		add('ActiveRecord::Base', EnumeratedAttribute::Integrations::ActiveRecord)
+        add('Sequel::Model', EnumeratedAttribute::Integrations::Sequel)
 		
 		def self.find_integration_map(klass)
 			path = "#{klass}"

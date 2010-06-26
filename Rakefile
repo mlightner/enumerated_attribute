@@ -1,4 +1,4 @@
-#require 'rake/testtask'
+require 'rake/testtask'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
 require 'rake/contrib/sshpublisher'
@@ -73,6 +73,13 @@ namespace :spec do
 #		t.libs << 'lib' << 'spec/active_record'
 #		t.rcov = false
 #	end
+
+	Spec::Rake::SpecTask.new(:sequel) do |t|
+		t.spec_files = FileList['spec/sequel/*_spec.rb']
+		t.spec_opts = ['--options', 'spec/spec.opts']
+        t.libs << 'lib' << 'spec/sequel'
+		t.rcov = false
+	end
 	desc "Run all specs"
 	task :all=>[:object, :ar, :forms] 
 end

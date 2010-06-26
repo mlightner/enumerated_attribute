@@ -2,7 +2,7 @@ module EnumeratedAttribute
 	module Integrations
 
 		module Default
-			def self.included(klass); klass.extend(ClassMethods); end
+			def self.included(klass);  klass.extend(ClassMethods); end
 		
 			module ClassMethods
 				def define_enumerated_attribute_writer_method(name)
