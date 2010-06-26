@@ -24,6 +24,12 @@ describe "Sequel integration: " do
       RaceCar.new(:gear => :first).should be_in_first
       RaceCar.new(:gear => 'first').should be_in_first
     end
+
+    it "should set nil when assigned an empty string" do
+      subject.gear = ''
+      subject.save
+      RaceCar[subject.id].gear.should == nil      
+    end
   end
 
   context "getters" do
@@ -36,7 +42,35 @@ describe "Sequel integration: " do
       subject.gear = "neutral"
       subject.gear.should == :neutral
     end
+
+    it "should return nil when actual value is empty string" do
+      subject[:gear] = ''
+      subject.gear.should == nil
+    end
   end
+
+  context "creation" do
+    it "should work" do
+      subject.save
+      RaceCar[subject.id].should_not be_nil
+      subject.should be_in_neutral
+    end
+  end
+
+  context "default values" do
+    subject { RaceCar.new }
+    it "should be assigned for new records" do
+      subject.gear.should == :neutral
+    end
+
+    it "should not be assigned for loaded records" do
+      subject.gear = nil
+      subject.save
+      RaceCar[subject.id].gear.should == nil
+    end
+
+  end
+
 
   it "should not raise exceptions on save" do
     lambda {
@@ -45,12 +79,8 @@ describe "Sequel integration: " do
   end
 
   it "should store strings in database" do
-    subject.gear = :neutral
-    subject.save
-    RaceCar[subject.id].gear.should == :neutral
+    subject.gear = :first
+    subject[:gear].should == "first"
   end
 
-  it "should assign default values" do
-    subject.should be_in_neutral
-  end
 end
