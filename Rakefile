@@ -79,7 +79,15 @@ namespace :spec do
 		t.spec_opts = ['--options', 'spec/spec.opts']
         t.libs << 'lib' << 'spec/sequel'
 		t.rcov = false
-	end
+    end
+
+	Spec::Rake::SpecTask.new(:datamapper) do |t|
+		t.spec_files = FileList['spec/datamapper/*_spec.rb']
+		t.spec_opts = ['--options', 'spec/spec.opts']
+        t.libs << 'lib' << 'spec/datamapper'
+		t.rcov = false
+    end
+
 	desc "Run all specs"
 	task :all=>[:object, :ar, :forms] 
 end
