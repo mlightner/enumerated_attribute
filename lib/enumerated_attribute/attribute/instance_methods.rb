@@ -3,13 +3,13 @@ module EnumeratedAttribute
     module InstanceMethods
       def self.included(base)
 
-        method_missing_suffix = "enumerated_attribute_#{base.name.gsub(/.+::/,'')}_#{base.hash.abs}".to_sym
-        define_method("method_missing_with_#{method_missing_suffix}") do |methId, *args|
+        method_missing_suffix = "enumerated_attribute_#{base.name.gsub(/.+::/, '')}_#{base.hash.abs}".to_sym
+        define_method("method_missing_with_#{method_missing_suffix}") do |methId, * args|
           return self.__send__(methId) if define_enumerated_attribute_dynamic_method(methId)
-          self.__send__("method_missing_without_#{method_missing_suffix}", methId, *args)
+          self.__send__("method_missing_without_#{method_missing_suffix}", methId, * args)
         end
 
-        respond_to_suffix = "enumerated_attribute_#{base.name.gsub(/.+::/,'')}_#{base.hash.abs}".to_sym
+        respond_to_suffix = "enumerated_attribute_#{base.name.gsub(/.+::/, '')}_#{base.hash.abs}".to_sym
         base.class_eval %{
           def respond_to_with_#{respond_to_suffix}?(method, include_private=false)
             self.respond_to_without_#{respond_to_suffix}?(method, include_private) ||
@@ -28,7 +28,7 @@ module EnumeratedAttribute
 
 
       def initialize_enumerated_attributes(only_if_nil = false)
-        self.class.enumerated_attributes.each do |k,v|
+        self.class.enumerated_attributes.each do |k, v|
           self.write_enumerated_attribute(k, v.init_value) unless (only_if_nil && read_enumerated_attribute(k) != nil)
         end
       end
@@ -57,10 +57,10 @@ module EnumeratedAttribute
           end
         else
           #search through enum values one at time and identify any ambiguities
-          self.class.enumerated_attributes.each do |attr_key,descriptor|
-            descriptor.enums.each do|v|
+          self.class.enumerated_attributes.each do |attr_key, descriptor|
+            descriptor.enums.each do |v|
               if middle.match(v.to_s+"$")
-                raise(AmbiguousMethod, meth_name+" is ambiguous, use something like "+attr_sym.to_s+(middle[0,1]=='_'? '' : '_')+middle+"? or "+attr_key.to_s+(middle[0,1]=='_'? '' : '_')+middle+"?", caller) if attr_sym
+                raise(AmbiguousMethod, meth_name+" is ambiguous, use something like "+attr_sym.to_s+(middle[0, 1]=='_' ? '' : '_')+middle+"? or "+attr_key.to_s+(middle[0, 1]=='_' ? '' : '_')+middle+"?", caller) if attr_sym
                 attr_sym = attr_key
                 value = v
               end

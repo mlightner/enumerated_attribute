@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'spec_helper'
 require 'data_mapper'
 require 'enumerated_attribute'
 require 'race_car'
@@ -9,13 +10,13 @@ describe "Datamapper integration: " do
       subject.gear = :first
       subject.should be_in_first
       subject.gear = "neutral"
-      subject.should be_in_neutral    
+      subject.should be_in_neutral
     end
 
     it "should work with #attributes=(hash)" do
-      subject.attributes = { :gear => "neutral" }
+      subject.attributes = {:gear => "neutral"}
       subject.should be_in_neutral
-      subject.attributes = { :gear => :first }
+      subject.attributes = {:gear => :first}
       subject.should be_in_first
     end
 
@@ -27,7 +28,7 @@ describe "Datamapper integration: " do
     it "should set nil when assigned an empty string" do
       subject.gear = ''
       subject.save
-      RaceCar.get(subject.id).gear.should == nil      
+      RaceCar.get(subject.id).gear.should == nil
     end
   end
 

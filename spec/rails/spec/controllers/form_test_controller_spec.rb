@@ -13,9 +13,9 @@ describe FormTestController do
       response.should be_success
     end
   end
-  
+
   describe "POST 'form'" do
-    
+
   end
 
   describe "GET 'form_for'" do
@@ -24,18 +24,18 @@ describe FormTestController do
       response.should be_success
     end
   end
-  
+
   describe "POST 'form_for'" do
   end
-  
+
   describe "GET 'form_tag'" do
     it "should be successful" do
       get 'form_tag'
       response.should be_success
     end
   end
-  
+
   describe "POST 'form_tag'" do
-    
+
   end
 end

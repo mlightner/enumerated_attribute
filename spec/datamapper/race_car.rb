@@ -8,11 +8,11 @@ DataMapper.setup(:default, 'sqlite::memory:')
 
 class RaceCar
   include DataMapper::Resource
-  property :id,     Serial
-  property :gear,   String
-  property :choke,  String
-  enum_attr :gear, %w(reverse ^neutral first second over_drive)
-  enum_attr :choke, %w(^none medium full)
+  property :id, Serial
+  property :gear, String
+  property :choke, String
+  enum_attr :gear, %w( reverse ^neutral first second over_drive )
+  enum_attr :choke, %w( ^none medium full )
 end
 
 DataMapper.auto_migrate!

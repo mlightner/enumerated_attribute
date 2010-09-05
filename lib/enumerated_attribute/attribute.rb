@@ -9,16 +9,21 @@ require 'ostruct'
 
 module EnumeratedAttribute
 
-	class EnumeratedAttributeError < StandardError; end
-	class IntegrationError < EnumeratedAttributeError; end
-	class InvalidEnumeration < EnumeratedAttributeError; end
-	class InvalidDefinition < EnumeratedAttributeError; end
-	class AmbiguousMethod < EnumeratedAttributeError; end
+  class EnumeratedAttributeError < StandardError;
+  end
+  class IntegrationError < EnumeratedAttributeError;
+  end
+  class InvalidEnumeration < EnumeratedAttributeError;
+  end
+  class InvalidDefinition < EnumeratedAttributeError;
+  end
+  class AmbiguousMethod < EnumeratedAttributeError;
+  end
 
   module Attribute
     private
 
-    def create_enumerated_attribute(*args, &block)
+    def create_enumerated_attribute(* args, & block)
       return if args.empty?
       config = Arguments.parse_enum_attr_arguments(args)
 
@@ -48,7 +53,7 @@ module EnumeratedAttribute
       config.initial_value = config.opts[:init] || config.initial_value
       if block_given?
         m = EnumeratedAttribute::MethodDefinitionDSL.new(self, self.enumerated_attributes(false)[config.attr_symbol]) #attr_name, enums)
-        m.instance_eval(&block)
+        m.instance_eval(& block)
         config.initial_value = m.initial_value || config.initial_value
         config.plural_name = m.pluralized_name || config.plural_name
         config.decrementor = m.decrementor_name || config.decrementor
@@ -60,7 +65,7 @@ module EnumeratedAttribute
         @enumerated_attributes ||={}
         @enumerated_attributes[config.attr_symbol].init_value = config.initial_value if config.initial_value
 
-        define_method(config.plural_name.to_sym) { self.class.enumerated_attributes[config.attr_symbol]}
+        define_method(config.plural_name.to_sym) { self.class.enumerated_attributes[config.attr_symbol] }
         define_method(config.incrementor.to_sym) do
           z = self.class.enumerated_attributes[config.attr_symbol].enums
           index = z.index(read_enumerated_attribute(config.attr_symbol))
@@ -75,5 +80,5 @@ module EnumeratedAttribute
       refresh_enumerated_attributes
     end
   end
-		
+
 end

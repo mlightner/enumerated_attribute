@@ -1,5 +1,5 @@
-#require 'test_in_memory'
 require 'rubygems'
+require 'spec_helper'
 require 'sequel'
 require 'enumerated_attribute'
 require 'race_car'
@@ -10,7 +10,7 @@ describe "Sequel integration: " do
       subject.gear = :first
       subject.should be_in_first
       subject.gear = "neutral"
-      subject.should be_in_neutral    
+      subject.should be_in_neutral
     end
 
     it "should work with #set(hash)" do
@@ -28,7 +28,7 @@ describe "Sequel integration: " do
     it "should set nil when assigned an empty string" do
       subject.gear = ''
       subject.save
-      RaceCar[subject.id].gear.should == nil      
+      RaceCar[subject.id].gear.should == nil
     end
   end
 

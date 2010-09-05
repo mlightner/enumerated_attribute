@@ -6,8 +6,8 @@ DB.create_table :race_cars do
 end
 
 class RaceCar < Sequel::Model
-	enum_attr :gear, %w(reverse ^neutral first second over_drive)
-	enum_attr :choke, %w(^none medium full)
+  enum_attr :gear, %w( reverse ^neutral first second over_drive )
+  enum_attr :choke, %w( ^none medium full )
 end
 
 #gear = enumerated column attribute

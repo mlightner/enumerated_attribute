@@ -17,12 +17,11 @@ module EnumeratedAttribute
       end
 
       def read_enumerated_attribute(name)
-        "reading #{name.inspect}"
         name = name.to_sym
-        (self[name] && self[name] != '')? self[name].to_sym : nil
+        (self[name] && self[name] != '') ? self[name].to_sym : nil
       end
 
-      def initialize(*args, &block)
+      def initialize(* args, & block)
         super
         initialize_enumerated_attributes(true) if new?
       end
@@ -36,7 +35,8 @@ module EnumeratedAttribute
       end
 
       module ClassMethods
-        def define_enumerated_attribute_new_method; end
+        def define_enumerated_attribute_new_method;
+        end
       end
     end
   end

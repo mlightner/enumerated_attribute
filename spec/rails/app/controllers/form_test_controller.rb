@@ -1,13 +1,13 @@
 class FormTestController < ApplicationController
-  
-  def index  
+
+  def index
   end
-  
+
   #ActionView::Helpers:ActiveRecordHelper
   def form
     @user = User.new(params[:user])
     return if request.get?
-    
+
     return unless @user.save
     redirect_to :action=>:index
   end
@@ -16,7 +16,7 @@ class FormTestController < ApplicationController
   def form_for
     @user = User.new(params[:user])
     return if request.get?
-    
+
     return unless @user.save
     redirect_to :action=>:index
   end
@@ -25,11 +25,11 @@ class FormTestController < ApplicationController
   def form_tag
     @user = User.new(params[:user])
     return if request.get?
-    
+
     return unless @user.save
     redirect_to :action=>:index
   end
-  
+
   #ActionView::Helpers::FormOptionsHelper
 #  def select
 #    

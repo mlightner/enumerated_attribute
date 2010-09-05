@@ -4,7 +4,7 @@ module EnumeratedAttribute
       def self.included(base)
         base.extend ClassMethods
       end
-      
+
       def write_enumerated_attribute(name, val)
         name = name.to_s
         val = nil if val == ''
@@ -18,15 +18,17 @@ module EnumeratedAttribute
 
       def read_enumerated_attribute(name)
         name = name.to_sym
-        (self[name] && self[name] != '')? self[name].to_sym : nil
+        (self[name] && self[name] != '') ? self[name].to_sym : nil
       end
 
-      def initialize(*args, &block)
+      def initialize(* args, & block)
         super
-        initialize_enumerated_attributes(true) if new?        
+        initialize_enumerated_attributes(true) if new?
       end
+
       module ClassMethods
-        def define_enumerated_attribute_new_method; end
+        def define_enumerated_attribute_new_method;
+        end
       end
     end
   end

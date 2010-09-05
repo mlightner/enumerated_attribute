@@ -12,20 +12,20 @@ require 'matchers'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 Webrat.configure do |config|
-	config.mode = :rails
+  config.mode = :rails
 end
-	
+
 Spec::Runner.configure do |config|
 end
 
 #setup for integrating webrat with rspec
 module Spec::Rails::Example
   class IntegrationExampleGroup < ActionController::IntegrationTest
-    
-    def initialize(defined_description, options={}, &implementation)
+
+    def initialize(defined_description, options={}, & implementation)
       defined_description.instance_eval do
         def to_s
           self
@@ -33,7 +33,7 @@ module Spec::Rails::Example
       end
       super(defined_description)
     end
-    
+
     Spec::Example::ExampleGroupFactory.register(:integration, self)
   end
 end
