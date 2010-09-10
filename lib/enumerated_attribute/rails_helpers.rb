@@ -1,6 +1,6 @@
 begin
   require 'active_record/connection_adapters/abstract/schema_definitions'
-rescue
+rescue Exception => e
 end
 
 if defined?(ActiveRecord)
