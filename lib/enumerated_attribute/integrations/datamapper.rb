@@ -35,7 +35,7 @@ module EnumeratedAttribute
       end
 
       module ClassMethods
-        def define_enumerated_attribute_new_method;
+        def define_enumerated_attribute_new_method
         end
       end
     end

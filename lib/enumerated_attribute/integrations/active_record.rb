@@ -8,17 +8,25 @@ module EnumeratedAttribute
 
       def write_enumerated_attribute(name, val)
         name = name.to_s
-        return write_attribute(name, val) unless self.class.has_enumerated_attribute?(name)
-        val = nil if val == ''
-        val_str = val.to_s if val
-        val_sym = val.to_sym if val
-        unless self.class.enumerated_attribute_allows_value?(name, val_sym)
-          raise(InvalidEnumeration, "nil is not allowed on '#{name}' attribute, set :nil=>true option", caller) unless val
-          raise(InvalidEnumeration, ":#{val_str} is not a defined enumeration value for the '#{name}' attribute", caller)
+        if self.class.has_enumerated_attribute?(name)
+          if self.has_attribute?(name)
+            val = nil if val == ''
+            if val
+              val_str = val.to_s
+              val_sym = val.to_sym
+            else
+              val_str = nil
+              val_sym = nil
+            end
+            check_enumerated_attribute_value(name, val_sym)
+            write_attribute(name, val_str)
+            val_sym
+          else
+            super
+          end
+        else
+          write_attribute(name, val)
         end
-        return instance_variable_set('@'+name, val_sym) unless self.has_attribute?(name)
-        write_attribute(name, val_str)
-        val_sym
       end
 
       def read_enumerated_attribute(name)

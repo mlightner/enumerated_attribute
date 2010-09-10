@@ -22,7 +22,6 @@ module EnumeratedAttribute
 
   module Attribute
     private
-
     def create_enumerated_attribute(* args, & block)
       return if args.empty?
       config = Arguments.parse_enum_attr_arguments(args)
@@ -37,6 +36,7 @@ module EnumeratedAttribute
             alias_method(p.first, p.last)
           end
           include(EnumeratedAttribute::Integrations::Default)
+          include(EnumeratedAttribute::Integrations::Object)
           include(@integration_map[:module]) if @integration_map[:module]
 
           self.extend ClassMethods
@@ -79,6 +79,7 @@ module EnumeratedAttribute
       end
       refresh_enumerated_attributes
     end
+  
   end
 
 end

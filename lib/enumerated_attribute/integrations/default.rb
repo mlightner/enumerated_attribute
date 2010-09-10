@@ -3,7 +3,7 @@ module EnumeratedAttribute
 
     module Default
       def self.included(klass)
-        ; klass.extend(ClassMethods);
+        klass.extend(ClassMethods)
       end
 
       module ClassMethods

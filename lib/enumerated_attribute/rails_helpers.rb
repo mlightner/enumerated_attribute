@@ -1,4 +1,7 @@
-require 'active_record/connection_adapters/abstract/schema_definitions'
+begin
+  require 'active_record/connection_adapters/abstract/schema_definitions'
+rescue
+end
 
 if defined?(ActiveRecord)
   module ActiveRecord

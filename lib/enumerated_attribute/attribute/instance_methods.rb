@@ -91,6 +91,15 @@ module EnumeratedAttribute
         true
       end
 
+      def check_enumerated_attribute_value(name, val_sym)
+        unless self.class.enumerated_attribute_allows_value?(name, val_sym)
+          if val_sym
+            raise(InvalidEnumeration, ":#{val_sym} is not a defined enumeration value for the '#{name}' attribute", caller)
+          else
+            raise(InvalidEnumeration, "nil is not allowed on '#{name}' attribute, set :nil=>true option", caller)
+          end
+        end
+      end
     end
   end
 end
